@@ -48,7 +48,12 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def buildVocabulary(corpus):
-    return
+    empty_list=[]
+    for list in corpus:
+        for i in list:
+            if i not in empty_list:
+                empty_list.append(i)
+    return empty_list
 
 
 '''
@@ -298,7 +303,7 @@ def scatterPlot(xs, ys, labels, title):
 if __name__ == "__main__":
     print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
     # test.week1Tests()
-    test.testGetCorpusLength()
+    test.testBuildVocabulary()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     # test.runWeek1()
 

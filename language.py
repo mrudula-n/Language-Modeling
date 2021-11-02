@@ -63,8 +63,12 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countUnigrams(corpus):
-    return
-
+    list=[]
+    for i in corpus:
+        for j in i:
+            list.append(j)
+        final_dict=dict((i,list.count(i)) for i in list)
+    return final_dict
 
 '''
 getStartWords(corpus)
@@ -303,7 +307,7 @@ def scatterPlot(xs, ys, labels, title):
 if __name__ == "__main__":
     print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
     # test.week1Tests()
-    test.testBuildVocabulary()
+    test.testCountUnigrams()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     # test.runWeek1()
 

@@ -143,7 +143,7 @@ def buildUnigramProbs(unigrams, unigramCounts, totalCount):
     values=unigramCounts.values()
     list=[i/totalCount for i in values]
     return list
-    
+
 '''
 buildBigramProbs(unigramCounts, bigramCounts)
 #3 [Check6-2]
@@ -151,7 +151,18 @@ Parameters: dict mapping strs to ints ; dict mapping strs to (dicts mapping strs
 Returns: dict mapping strs to (dicts mapping strs to (lists of values))
 '''
 def buildBigramProbs(unigramCounts, bigramCounts):
-    return
+    main_dictionary={}
+    for prevWord in bigramCounts:
+        word=[]
+        prob=[]
+        for key,value in bigramCounts[prevWord].items():
+            word.append(key)
+            prob.append(value/unigramCounts[prevWord])
+            dictionary={}
+            dictionary["words"]=word
+            dictionary["probs"]=prob
+        main_dictionary[prevWord]=dictionary
+    return main_dictionary
 
 
 '''
@@ -336,7 +347,7 @@ if __name__ == "__main__":
     ## Uncomment these for Week 2 ##
 
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    test.testBuildUnigramProbs()
+    test.testBuildBigramProbs()
     # test.week2Tests()
 
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")

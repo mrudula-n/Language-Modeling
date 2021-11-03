@@ -126,8 +126,12 @@ Parameters: list of strs
 Returns: list of floats
 '''
 def buildUniformProbs(unigrams):
-    return
-
+    length=len(unigrams)
+    list_element=1/length
+    list=[]
+    for i in range(length):
+        list.append(list_element)
+    return list
 
 '''
 buildUnigramProbs(unigrams, unigramCounts, totalCount)
@@ -323,18 +327,20 @@ def scatterPlot(xs, ys, labels, title):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
     print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    test.week1Tests()
+    # test.week1Tests()
     # test.testCountBigrams()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek1()
+    # test.runWeek1()
 
     ## Uncomment these for Week 2 ##
-"""
+
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    test.week2Tests()
+    test.testBuildUniformProbs()
+    # test.week2Tests()
+
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek2()
-"""
+    # test.runWeek2()
+
 
     ## Uncomment these for Week 3 ##
 """

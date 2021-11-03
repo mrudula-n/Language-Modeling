@@ -91,8 +91,12 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countStartWords(corpus):
-    return
-
+    list=[]
+    for i in corpus:
+        word=i[0]
+        list.append(word)
+    words_dict=dict((i,list.count(i)) for i in list)
+    return words_dict
 
 '''
 countBigrams(corpus)
@@ -311,7 +315,7 @@ def scatterPlot(xs, ys, labels, title):
 if __name__ == "__main__":
     print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
     # test.week1Tests()
-    test.testGetStartWords()
+    test.testCountStartWords()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     # test.runWeek1()
 

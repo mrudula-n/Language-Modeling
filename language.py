@@ -77,8 +77,12 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def getStartWords(corpus):
-    return
-
+    start_words=[]
+    for i in corpus:
+        word=i[0]
+        if word not in start_words:
+            start_words.append(word)
+    return start_words
 
 '''
 countStartWords(corpus)
@@ -307,7 +311,7 @@ def scatterPlot(xs, ys, labels, title):
 if __name__ == "__main__":
     print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
     # test.week1Tests()
-    test.testCountUnigrams()
+    test.testGetStartWords()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     # test.runWeek1()
 

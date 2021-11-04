@@ -188,8 +188,11 @@ Returns: str
 '''
 from random import choices
 def generateTextFromUnigrams(count, words, probs):
-    return
-
+    string1=""
+    for i in range(count):
+        string2=choices(words, weights=probs)
+        string1+=string2[0]+" "
+    return string1
 
 '''
 generateTextFromBigrams(count, startWords, startWordProbs, bigramProbs)
@@ -352,7 +355,7 @@ if __name__ == "__main__":
     ## Uncomment these for Week 2 ##
 
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    test.testGetTopWords()
+    test.testGenerateTextFromUnigrams()
     # test.week2Tests()
 
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")

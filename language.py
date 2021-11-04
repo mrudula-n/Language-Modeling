@@ -227,6 +227,8 @@ graphTop50Words(corpus)
 Parameters: 2D list of strs
 Returns: None
 '''
+import matplotlib.pyplot as plt;
+import numpy as np
 def graphTop50Words(corpus):
     return
 

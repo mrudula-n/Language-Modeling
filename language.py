@@ -201,11 +201,21 @@ Parameters: int ; list of strs ; list of floats ; dict mapping strs to (dicts ma
 Returns: str
 '''
 def generateTextFromBigrams(count, startWords, startWordProbs, bigramProbs):
-    return
+    lines=""
+    for i in range(count):
+        list=lines.split()
+        if len(lines)==0 or list[len(list)-1]==".":
+            list1=choices(startWords, weights=startWordProbs)
+            lines+=list1[0]+" "
+        else:
+            list2=choices(bigramProbs[list[len(list)-1]]["words"], weights=bigramProbs[list[len(list)-1]]["probs"])
+            lines+=list2[0]+" "
+    return lines
 
 
+    
+    
 ### WEEK 3 ###
-
 ignore = [ ",", ".", "?", "'", '"', "-", "!", ":", ";", "by", "around", "over",
            "a", "on", "be", "in", "the", "is", "on", "and", "to", "of", "it",
            "as", "an", "but", "at", "if", "so", "was", "were", "for", "this",
@@ -355,7 +365,7 @@ if __name__ == "__main__":
     ## Uncomment these for Week 2 ##
 
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    test.testGenerateTextFromUnigrams()
+    test.testGenerateTextFromBigrams()
     # test.week2Tests()
 
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")

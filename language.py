@@ -175,12 +175,17 @@ Parameters: int ; list of strs ; list of floats ; list of strs
 Returns: dict mapping strs to floats
 '''
 def getTopWords(count, words, probs, ignoreList):
-    dict1={}
-    result={words[i]:probs[i] for i in range(len(words)) if words[i] not in ignoreList}
-    result1=sorted((value,key) for (key,value) in result.items())
-    list=result1[-count:]
-    dict1=dict([(k,v) for (v,k) in list])
-    return dict1
+    req_words={}
+    for i in range(len(words)):
+        if words[i] not in  ignoreList:
+            req_words[words[i]]=probs[i]
+    import heapq
+    top_key_lst = heapq.nlargest(count, req_words, key=req_words.get )
+    high_prob={}
+    for i in top_key_lst:
+        if req_words[i] not in high_prob:
+            high_prob[i] = req_words[i]
+    return high_prob
 
 
 '''
@@ -278,7 +283,34 @@ Parameters: 2D list of strs ; 2D list of strs ; int
 Returns: dict mapping strs to (lists of values)
 '''
 def setupChartData(corpus1, corpus2, topWordCount):
-    return
+    final_dict={}
+    countProbs1=[]
+    countProbs2=[]
+    unigram1=buildVocabulary(corpus1)
+    unigramCount1=countUnigrams(corpus1)
+    corpusLenght1=getCorpusLength(corpus1)
+    unigramProbs1=buildUnigramProbs(unigram1, unigramCount1, corpusLenght1)
+    topWords1=getTopWords(topWordCount, unigram1, unigramProbs1, ignore)
+    unigram2=buildVocabulary(corpus2)
+    unigramCount2=countUnigrams(corpus2)
+    corpusLenght2=getCorpusLength(corpus2)
+    unigramProbs2=buildUnigramProbs(unigram2, unigramCount2, corpusLenght2)
+    topWords2=getTopWords(topWordCount, unigram2, unigramProbs2, ignore)
+    list1=list(topWords1.keys())+list(topWords2.keys())
+    topWords=list(dict.fromkeys(list1))
+    for i in topWords:
+        if i in topWords1:
+            countProbs1.append(topWords1[i])
+        else:
+            countProbs1.append(0)
+        if i in topWords2:
+            countProbs2.append(topWords2[i])
+        else:
+            countProbs2.append(0)
+    final_dict["topWords"]=topWords
+    final_dict["corpus1Probs"]=countProbs1
+    final_dict["corpus2Probs"]=countProbs2
+    return final_dict
 
 
 '''
@@ -288,6 +320,8 @@ Parameters: 2D list of strs ; str ; 2D list of strs ; str ; int ; str
 Returns: None
 '''
 def graphTopWordsSideBySide(corpus1, name1, corpus2, name2, numWords, title):
+    corpora=setupChartData(corpus1, corpus2, numWords)
+    sideBySideBarPlots(corpora["topWords"], corpora["corpus1Probs"], corpora["corpus2Probs"], name1, name2, title)
     return
 
 
@@ -298,6 +332,8 @@ Parameters: 2D list of strs ; 2D list of strs ; int ; str
 Returns: None
 '''
 def graphTopWordsInScatterplot(corpus1, corpus2, numWords, title):
+    corpora=setupChartData(corpus1, corpus2, numWords)
+    scatterPlot(corpora["corpus1Probs"], corpora["corpus2Probs"], corpora["topWords"], title)
     return
 
 
@@ -395,4 +431,5 @@ if __name__ == "__main__":
     ## Uncomment these for Week 3 ##
 
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
+    test.testSetupChartData()
     test.runWeek3()

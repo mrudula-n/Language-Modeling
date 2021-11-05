@@ -172,12 +172,17 @@ Parameters: int ; list of strs ; list of floats ; list of strs
 Returns: dict mapping strs to floats
 '''
 def getTopWords(count, words, probs, ignoreList):
-    dict1={}
-    result={words[i]:probs[i] for i in range(len(words)) if words[i] not in ignoreList}
-    result1=sorted((value,key) for (key,value) in result.items())
-    list=result1[-count:]
-    dict1=dict([(k,v) for (v,k) in list])
-    return dict1
+    req_words={}
+    for i in range(len(words)):
+        if words[i] not in  ignoreList:
+            req_words[words[i]]=probs[i]
+    import heapq
+    top_key_lst = heapq.nlargest(count, req_words, key=req_words.get )
+    high_prob={}
+    for i in top_key_lst:
+        if req_words[i] not in high_prob:
+            high_prob[i] = req_words[i]
+    return high_prob
 
 
 '''

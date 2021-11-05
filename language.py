@@ -249,7 +249,12 @@ Parameters: 2D list of strs
 Returns: None
 '''
 def graphTopStartWords(corpus):
-    return
+    startWords=getStartWords(corpus)
+    startWordCounts=countStartWords(corpus)
+    startWordProbs=buildUnigramProbs(startWords, startWordCounts, len(corpus))
+    count=getTopWords(50, startWords, startWordProbs, ignore)
+    graph=barPlot(count, "Top Start Words")
+    return graph
 
 
 '''

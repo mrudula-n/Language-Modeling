@@ -28,6 +28,7 @@ def loadBook(filename):
     return lst1
 
 
+
 '''
 getCorpusLength(corpus)
 #2 [Check6-1]
@@ -63,12 +64,14 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countUnigrams(corpus):
-    list=[]
+    dictionary={}
     for i in corpus:
         for j in i:
-            list.append(j)
-        final_dict=dict((i,list.count(i)) for i in list)
-    return final_dict
+            if j in dictionary:
+                dictionary[j]+=1
+            else:
+                dictionary[j]=1
+    return dictionary
 
 '''
 getStartWords(corpus)
@@ -230,7 +233,13 @@ Returns: None
 import matplotlib.pyplot as plt;
 import numpy as np
 def graphTop50Words(corpus):
-    return
+    words=buildVocabulary(corpus)
+    count=getCorpusLength(corpus)
+    unigramCount=countUnigrams(corpus)
+    unigramProbs=buildUnigramProbs(words, unigramCount, totalCount=count)
+    topWords=getTopWords(50, words, unigramProbs, ignore)
+    graph=barPlot(topWords, "Top 50 Words")
+    return graph
 
 
 '''
@@ -359,23 +368,22 @@ def scatterPlot(xs, ys, labels, title):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
     print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    # test.week1Tests()
+    test.week1Tests()
     # test.testCountBigrams()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    # test.runWeek1()
+    test.runWeek1()
 
     ## Uncomment these for Week 2 ##
 
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    test.testGenerateTextFromBigrams()
-    # test.week2Tests()
+    # test.testGenerateTextFromBigrams()
+    test.week2Tests()
 
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-    # test.runWeek2()
+    test.runWeek2()
 
 
     ## Uncomment these for Week 3 ##
-"""
+
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     test.runWeek3()
-"""
